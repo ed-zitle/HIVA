@@ -1,0 +1,29 @@
+modules:
+  jira:projectSettingsPage:
+    - key: jira-chatgpt
+      function: main
+      title: HIVA
+  trigger:
+    - key: jira-create-issue
+      function: event
+      events:
+        - avi:jira:created:issue
+        - avi:jira:updated:issue
+  function:
+    - key: main
+      handler: index.run
+    - key: event
+      handler: index.eventHandler
+app:
+  id: ari:cloud:ecosystem::app/470ffad3-c496-4fd6-9dbd-bc846f862d89
+permissions:
+  scopes:
+    - "read:jira-work"
+    - "write:jira-work"
+    - "write:servicedesk-request"
+    - "read:servicedesk-request"
+    - "storage:app"
+  external:
+    fetch:
+      backend:
+        - "*.openai.azure.com/*"
